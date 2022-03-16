@@ -1,7 +1,9 @@
 const express = require('express')
 const morgan = require('morgan')
 const favicon = require('serve-favicon')
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser')//parser les req
+const Sequelize = require('sequelize')//corm de connexion avec la bd
+
 
 const {success, getUniqueId} = require('./helper') //const helper = require('./helper') affectation destructuré!
 
@@ -10,6 +12,26 @@ let pokemons = require('./mock-pokemon')
 //on instancie app avec express()
 const app = express()
 const port = 3000
+
+//instance de sequelize mise en place de connexion avac la bd
+const sequelize = new Sequelize(
+    'Pokedex',
+    'root',
+    '',
+    {
+        host: 'localhost',
+        dialect: 'mariadb',
+        dialectOptions:{
+            timezone: 'Etc/GMT-2'
+        },
+        logging: false
+    }
+)
+
+sequelize.authenticate()
+    .then(_ => console.log('la connexion à la bd a reussi'))
+    .catch(error => console.log('la connexion à la bd a échouée'))
+
 
 //middleware logger
 /*app.use((req,  res, next)=>{
@@ -56,7 +78,7 @@ app.post('/api/pokemons',(req, res)=>{
 //modifier un pokemon
 app.put('/api/pokemons/:id', (req,res)=> {
     const id = parseInt(req.params.id)
-    const pokemonUpdated = { ...req.body, id: id}
+    const pokemonUpdated = { ...req.body, ...{id: id, Modified: new Date()}}
     pokemons = pokemons.map(pokemon => {
         return pokemon.id === id ? pokemonUpdated : pokemon
     })
@@ -69,7 +91,7 @@ app.put('/api/pokemons/:id', (req,res)=> {
 app.delete('/api/pokemons/:id', (req, res)=> {
     const id = parseInt(req.params.id)
     const pokemonDeleted = pokemons.find( pokemon => pokemon.id === id)
-    pokemons.filter(pokemons => pokemons.id !== id)
+    pokemons = pokemons.filter(pokemon => pokemon.id !== id)
     const message = `Le pokemon ${pokemonDeleted.name} a bien été supprimer`
     res.json(success(message, pokemonDeleted))
 })
