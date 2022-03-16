@@ -1,13 +1,14 @@
+//importations externes
 const express = require('express')
 const morgan = require('morgan')
 const favicon = require('serve-favicon')
 const bodyParser = require('body-parser')//parser les req
-const Sequelize = require('sequelize')//corm de connexion avec la bd
+const {Sequelize, DataTypes} = require('sequelize')//corm de connexion avec la bd
 
-
+//importation internes
 const {success, getUniqueId} = require('./helper') //const helper = require('./helper') affectation destructuré!
-
 let pokemons = require('./mock-pokemon')
+const PokemonModel = require('./src/models/pokemons')
 
 //on instancie app avec express()
 const app = express()
@@ -30,7 +31,25 @@ const sequelize = new Sequelize(
 
 sequelize.authenticate()
     .then(_ => console.log('la connexion à la bd a reussi'))
-    .catch(error => console.log('la connexion à la bd a échouée'))
+    .catch(error => console.log(`la connexion à la bd a échouée ${error}`))
+
+const Pokemon = PokemonModel(sequelize, DataTypes)
+
+sequelize.sync({force: true})
+    .then(_ => {
+        console.log('la bd Pokedex a bien été synchronisé')
+
+        pokemons.map(pokemon => {
+            Pokemon.create({
+            name: pokemon.name,
+            hp: pokemon.hp,
+            cp: pokemon.cp,
+            picture: pokemon.picture,
+            types: pokemon.types.join()
+        }).then(pokemons => console.log(pokemons.toJSON()))
+        })
+
+    })
 
 
 //middleware logger
@@ -45,6 +64,7 @@ app .use(favicon(__dirname +'/favicon.ico'))//la favicon
 
 app.get('/', (req, res)=> res.send('Hello, Again Express')) //point de terminaison principale
 
+
 //point de terminaison secondaire ou router
 app.get('/api/pokemons/:id', (req, res)=> {
     const id = parseInt(req.params.id)
@@ -57,8 +77,6 @@ app.get('/api/pokemons/:id', (req, res)=> {
     res.json(success(message, pokemon))//on recupère le json avec json()
 
 })
-//exo1 nb total de pokemon
-
 app.get('/api/pokemons/', (req, res)=> {
     //res.send(`Il y a ${pokemons.length} pokemons dans le pokedex`)
     const message = "la liste des pokemons a bien été trouvé."
@@ -97,3 +115,4 @@ app.delete('/api/pokemons/:id', (req, res)=> {
 })
 
 app.listen(port, ()=> console.log(`Notre application va démarer sur: http://localhost:${port}`))
+
