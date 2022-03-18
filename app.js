@@ -19,10 +19,16 @@ sequelize.initDb()
 
 //mise en place les points de terminaisons.
 require('./src/routes/findAllPokemons')(app)
+require('./src/routes/findPokemonByPK')(app)
 require('./src/routes/createPokemon')(app)
 require('./src/routes/updatePokemons')(app)
 require('./src/routes/deletePokemons')(app)
 
+// on ajoute la gestion des erreurs 
+app.use(({res})=>{
+    const message = 'Impossible de trouver la ressource demandée! Vous pouvez essayer une autre URL.'
+    res.status(404).json({message})
+})
 
 app.listen(port, ()=> console.log(`Notre application va démarer sur: http://localhost:${port}`))
 

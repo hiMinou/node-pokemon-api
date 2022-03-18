@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         return this.getDataValue('types').split(',')
       },
       set(types){
-        this.setDataValue('types', types.join(","))
+        this.setDataValue('types', types.join())
       }
     }
   }, {
