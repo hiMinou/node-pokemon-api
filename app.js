@@ -23,6 +23,7 @@ require('./src/routes/findPokemonByPK')(app)
 require('./src/routes/createPokemon')(app)
 require('./src/routes/updatePokemons')(app)
 require('./src/routes/deletePokemons')(app)
+require('./src/routes/login')(app)
 
 // on ajoute la gestion des erreurs 
 app.use(({res})=>{
