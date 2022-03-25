@@ -1,0 +1,53 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\minou\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add heroku
+
+PATH: 
+  C:\Users\minou\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\minou\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\VMware\VMware Workstation\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Git\cmd;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Git;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Node.js;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\dotnet;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\composer;C:\xampp\php;C:\symfony-cli_windows_amd64;C:\Program Files\nodejs;C:\Program Files\Cloudflare\Cloudflare WARP;C:\ProgramData\chocolatey\bin;C:\Users\minou\AppData\Local\Microsoft\WindowsApps;C:\Users\minou\AppData\Local\atom\bin;C:\Users\minou\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\MariaDB 10.6\bin;C:\Users\minou\.dotnet\tools;C:\Program Files\JetBrains\IntelliJ IDEA Educational Edition 2021.2\bin;C:\sqldeveloper\sqldeveloper\bin;C:\Program Files\JetBrains\IntelliJ IDEA 2021.2.2\bin;C:\Users\minou\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\WebStorm 2021.2.2\bin;C:\Program Files\JetBrains\CLion 2021.2.2\bin;C:\Program Files\JetBrains\PyCharm 2021.2.3\bin;C:\Program Files (x86)\php-8.0.12-Win32-vs16-x64;C:\Users\minou\AppData\Roaming\Composer\vendor\bin;C:\Users\minou\AppData\Roaming\npm;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+
+Yarn version: 
+  1.22.17
+
+Node version: 
+  16.14.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EPERM: operation not permitted, unlink 'C:\Users\minou\Documents\minou_dev\fullstackJs\nodejsStack\node-pokemon-api\node_modules\bcrypt\lib\binding\napi-v3\bcrypt_lib.node'
+
+npm manifest: 
+  {
+    "name": "node-pokemon-api",
+    "version": "1.0.0",
+    "description": "This is an API rest to handle some pokemons.",
+    "main": "app.js",
+    "scripts": {
+      "start": "NODE_ENV=production nodeapp.js",
+      "dev": "NODE_ENV=development nodemon app.js"
+    },
+    "repository": {
+      "type": "git",
+      "url": "node-pokemon-api"
+    },
+    "author": "MiMINOU (minou matoko)",
+    "license": "ISC",
+    "dependencies": {
+      "bcrypt": "^5.0.1",
+      "body-parser": "^1.19.2",
+      "express": "^4.17.3",
+      "jsonwebtoken": "^8.5.1",
+      "mariadb": "^3.0.0",
+      "sequelize": "^6.17.0",
+      "serve-favicon": "^2.5.0"
+    },
+    "devDependencies": {
+      "nodemon": "^2.0.15"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
